@@ -5,9 +5,8 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
-import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 app = FastAPI()
 
 #domain where this   api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
