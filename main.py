@@ -5,14 +5,13 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
+import os
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 app = FastAPI()
 
 #domain where this   api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
 
-MODEL = tf.keras.models.load_model("./tomato.h5")
-
-CLASS_NAMES = ["Early Blight", "Late Blight","Septoria leaf Spot","Healthy"]
 
 
 @app.get("/")
@@ -32,6 +31,11 @@ def read_file_as_image(data) -> np.ndarray:
 async def predict(
     file: UploadFile = File(...)
 ):
+    
+    MODEL = tf.keras.models.load_model("./tomato.h5")
+
+    CLASS_NAMES = ["Early Blight", "Late Blight","Septoria leaf Spot","Healthy"]
+
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
     
