@@ -11,6 +11,7 @@ app = FastAPI()
 
 #domain where this   api is hosted for example : localhost:5000/docs to see swagger documentation automagically generated.
 
+MODEL = tf.keras.models.load_model('tomato')
 
 
 @app.get("/")
@@ -31,7 +32,6 @@ async def predict(
     file: UploadFile = File(...)
 ):
     
-    MODEL = tf.keras.models.load_model("./tomato.h5")
 
     CLASS_NAMES = ["Early Blight", "Late Blight","Septoria leaf Spot","Healthy"]
 
